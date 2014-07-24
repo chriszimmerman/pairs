@@ -1,6 +1,16 @@
 require 'set'
 
-devs = ['bh', 'pb', 'mph', 'mi']
+class Set
+	def to_s
+		print '[ '
+		self.entries.each{|entry|
+			print "#{entry.to_s} "
+		}
+		print ']'
+	end
+end
+
+devs = ['bh', 'pb', 'mph', 'mi', 'cz']
 pair_combos = []
 
 devs.permutation.each {|perm|
@@ -11,9 +21,11 @@ devs.permutation.each {|perm|
 		pair_combo.add(pair)
 	end
 
-	pair_combos.push(pair_combo)
+	if pair_combos.select{|pc| pc.intersection(pair_combo).length > 1}.length == 0 then
+		pair_combos.push(pair_combo)
+	end
 }
 
-pair_combos.uniq.each {|pc|
-	p pc
+pair_combos.each {|pc|
+	puts pc.to_s
 }
